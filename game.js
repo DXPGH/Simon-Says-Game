@@ -13,6 +13,14 @@ $(document).keypress(function() {
       }
 })
 
+$("#start").click(function(){
+  if (!started) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
+})
+
 function nextSequence() {
     userClickedPattern = [];
     level++;
