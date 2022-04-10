@@ -28,9 +28,10 @@ body {
 
 .start-button {
   display: inline-block;
+  font-family: 'Press Start 2P', cursive;
   height: 100px;
   width: 200px;
-  font-size: 4em;
+  font-size: 2em;
   background-color: #FEF2BF;
 }
 
