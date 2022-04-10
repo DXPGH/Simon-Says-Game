@@ -9,7 +9,10 @@ $(document).keypress(function() {
     if (!started) {
         $("#level-title").text("Level " + level);
         nextSequence();
+        $("#start").text("Restart");
         started = true;
+      } else {
+        startOver();
       }
 })
 
@@ -17,7 +20,11 @@ $("#start").click(function(){
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
+    $("#start").text("Play Again!");
+    $(".start-button").css("width", "380px");
     started = true;
+  } else {
+    startOver();
   }
 })
 
@@ -28,8 +35,28 @@ function nextSequence() {
     let randomNumber = Math.floor(Math.random() * 4);
     let randomChosenColour = buttonColours[randomNumber];
     gamePattern.push(randomChosenColour);
-    $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
-    playSound(randomChosenColour);
+    if (gamePattern.length == 1) {
+      $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
+      playSound(randomChosenColour);
+    } else {
+      playRound(gamePattern);
+    }
+}
+
+function activateColor(color) {
+  $("#" + color).addClass("pressed");
+  playSound(color);
+  setTimeout(() => {
+    $("#" + color).removeClass("pressed");
+  }, 300);
+}
+
+function playRound(gamePattern) {
+  gamePattern.forEach((color, index) => {
+    setTimeout(() => {
+      activateColor(color);
+    }, (index+1) * 600);
+  });
 }
 
 $(".btn").click(function () {
